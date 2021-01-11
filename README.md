@@ -4,10 +4,10 @@ If you haven't taken up the challenge yet, please do before reading on. The [cha
 
 This repository contains the challenge's puzzles and encourages everyone to upload and share their solutions.
 
-To do so, please fork this repository and push your code into your fork. That way, everyone can easily find your solution by searching through all of the repo's forks. We also suggest you edit the readme in your fork to guide other readers, describe your thought process and highlight parts you are especially proud of.
+Festo offical solutions to the puzzles are [available here](https://github.com/MichaelSinsbeck/festo-coding-challenge-2020-solutions).
 
+In this repo, I share my own solutions. All my code is written in Python.
 
-Our own solutions to the puzzles are [available here](https://github.com/MichaelSinsbeck/festo-coding-challenge-2020-solutions).
 
 ## 1-1 Maintenance Man - Five XOR Seven
 
@@ -18,6 +18,19 @@ The maintenance man is responsible for delivering the internal mail to all emplo
 All rooms in the building are placed on one very long hallway. All valid room numbers are - of course - arranged in ascending order: 5, 7, 15 , 17 ...
 
 The maintenance man needs to bring mail to the 1000th room in the hallway. What is the room number of this room?
+
+```python
+def RoomNumber():
+    i = 0
+    roomNumber = 0 
+    while i<1000:
+        if (str(roomNumber).count('5') > 0 and str(roomNumber).count('7') == 0) or (str(roomNumber).count('5') == 0 and str(roomNumber).count('7') > 0) :
+            i = i + 1
+            print('{}.Room: {}'.format(i,roomNumber))
+
+        roomNumber = roomNumber + 1
+ ```
+Solution for puzzle 1.1: 2379
 
 ## 1-2 System Admin - Christmas Cards
 
@@ -72,6 +85,49 @@ For example, these numbers are not allowed any more: 2020, 20201, 205420, 20020,
 Oh, and of course, the first room number is 1, not 0.
 
 The maintenance man needs to bring mail to the 1,000,000th room in the hallway. What is the room number of this room?
+
+```python
+def NoMore2020():
+    i = 1
+    roomCount = 0
+    while roomCount < 1000000 :
+        number2 = str(i).count('2')
+        number0 = str(i).count('0')
+
+        if  number2 < 2 or number0 < 2:
+            roomCount = roomCount + 1
+
+        else:
+            isAccepteable = True
+            First2loc = -1 
+            inputNumber = str(i)
+            for j in range(number2):
+                
+                First2loc = inputNumber[First2loc+1:].find('2')
+                inputNumber = inputNumber[First2loc+1:]
+                first0loc = inputNumber.find('0')
+
+                if first0loc != -1 :
+                    inputNumber = inputNumber[first0loc+1:]
+                    second2Loc = inputNumber.find('2')
+                    if second2Loc != -1:
+                        inputNumber = inputNumber[second2Loc+1:]
+                        second0Loc = inputNumber.find('0')
+                        if second0Loc != -1 :
+                            isAccepteable = False
+                            break
+            
+            if isAccepteable == True:
+                roomCount = roomCount + 1
+
+                
+        if roomCount == 1000000:
+            print(i)
+ 
+        i = i + 1
+
+```
+Solution for puzzle 2.1: 1001270
 
 ## 2-2 System Admin - Christmas Shopping
 
